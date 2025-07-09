@@ -31,6 +31,14 @@ public class EmployeeController {
     @Autowired
     private JwtProperties jwtProperties;
 
+    /*
+    添加员工
+    */
+    @PostMapping
+    public Result addEmployee(@RequestBody EmployeeDTO employeeDTO){
+        employeeService.addEmployee(employeeDTO);
+        return Result.success("登录成功");
+    }
     /**
      * 登录
      *
