@@ -1,1 +1,2 @@
-# ChatGPT-Next
+# Sky_Takeout
+A popular project.
