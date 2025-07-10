@@ -1,6 +1,8 @@
 package com.sky.mapper;
 
+import com.github.pagehelper.Page;
 import com.sky.dto.EmployeeDTO;
+import com.sky.dto.EmployeePageQueryDTO;
 import com.sky.entity.Employee;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,4 +23,6 @@ public interface EmployeeMapper {
             "VALUES(#{username},#{name},#{phone},#{password},#{idNumber},#{sex},#{createTime},#{updateTime},#{createUser},#{updateUser}) ")
     void addEmployee(Employee employee);
 
+
+    Page<Employee> pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
 }
