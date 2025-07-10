@@ -4,6 +4,7 @@ import com.sky.constant.JwtClaimsConstant;
 import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
 import com.sky.dto.EmployeePageQueryDTO;
+import com.sky.dto.PasswordEditDTO;
 import com.sky.entity.Employee;
 import com.sky.properties.JwtProperties;
 import com.sky.result.PageResult;
@@ -30,6 +31,45 @@ public class EmployeeController {
     private EmployeeService employeeService;
     @Autowired
     private JwtProperties jwtProperties;
+
+    @PutMapping
+    public Result editEmployee(@RequestBody EmployeeDTO employeeDTO){
+        employeeService.editEmployee(employeeDTO);
+
+        return Result.success("编辑成功");
+    }
+    /**
+     * 根据id查询员工
+     * @param id
+     * @return
+     */
+    @GetMapping("{id}")
+    public Result queryEmployee(@PathVariable String id){
+        Employee employee = employeeService.queryEmployee(id);
+        return Result.success("查询成功",employee);
+    }
+    /**
+     * 修改密码
+     * @param passwordEditDTO
+     * @return
+     */
+    @PutMapping("/editPassword")
+    public Result editPassword(@RequestBody PasswordEditDTO passwordEditDTO){
+        employeeService.editPassword(passwordEditDTO);
+        return Result.success("修改密码成功");
+    }
+    /**
+     * 修改状态
+     * @param status
+     * @param id
+     * @return
+     */
+    @PostMapping("/status/{status}")
+    public Result setStatus(@PathVariable String status,@RequestParam String id){
+        employeeService.setStatus(status,id);
+        return Result.success("修改状态成功");
+
+    }
 
     /**
      * 分页查询

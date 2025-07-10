@@ -1,6 +1,8 @@
 package com.sky.result;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
@@ -8,6 +10,8 @@ import java.io.Serializable;
  * 后端统一返回结果
  * @param <T>
  */
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class Result<T> implements Serializable {
 
@@ -23,6 +27,14 @@ public class Result<T> implements Serializable {
 
     public static <T> Result<T> success(T object) {
         Result<T> result = new Result<T>();
+        result.data = object;
+        result.code = 1;
+        return result;
+    }
+
+    public static <T> Result<T> success(String msg,T object) {
+        Result<T> result = new Result<T>();
+        result.msg = msg;
         result.data = object;
         result.code = 1;
         return result;
