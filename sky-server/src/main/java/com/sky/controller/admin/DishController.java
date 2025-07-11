@@ -18,7 +18,30 @@ import java.util.List;
 public class DishController {
     @Autowired
     private DishService dishService;
+    /**
+     * 修改菜品信息
+     */
+    @PutMapping
+    public Result updataById(@RequestBody DishDTO dishDTO){
+        dishService.updataById(dishDTO);
+        return Result.success();
+    }
 
+    /**
+     * 删除菜品
+     */
+    @DeleteMapping
+    public Result deleteById(@RequestParam List<Long> ids){
+        dishService.deleteById(ids);
+        return Result.success();
+
+    }
+
+    /**
+     * 分页查询
+     * @param dishPageQueryDTO
+     * @return
+     */
     @GetMapping("/page")
     public Result<PageResult> page(DishPageQueryDTO dishPageQueryDTO){
         PageResult page = dishService.page(dishPageQueryDTO);
@@ -56,7 +79,7 @@ public class DishController {
     }
 
     /**
-     * TODO 增加菜品
+     *
      * @param dishDTO
      * @return
      */
@@ -65,9 +88,5 @@ public class DishController {
         dishService.addDish(dishDTO);
         return Result.success();
     }
-
-//    public Result addFlavor(@RequestBody DishFlavor dishFlavor){
-//        return Result.success();
-//    }
 
 }

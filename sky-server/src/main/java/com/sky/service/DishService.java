@@ -18,4 +18,8 @@ public interface DishService {
     void status(String status, String id);
 
     PageResult page(DishPageQueryDTO dishPageQueryDTO);
+
+    void deleteById(List<Long> ids);
+
+    void updataById(DishDTO dishDTO);
 }
