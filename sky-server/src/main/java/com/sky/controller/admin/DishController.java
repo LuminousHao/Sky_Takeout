@@ -2,27 +2,72 @@ package com.sky.controller.admin;
 
 
 import com.sky.dto.DishDTO;
-import com.sky.entity.DishFlavor;
+import com.sky.dto.DishPageQueryDTO;
+import com.sky.entity.Dish;
+import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.DishService;
+import com.sky.vo.DishVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-@RestController("admin/dish")
+import java.util.List;
+
+@RestController
+@RequestMapping("/admin/dish")
 public class DishController {
     @Autowired
     private DishService dishService;
 
+    @GetMapping("/page")
+    public Result<PageResult> page(DishPageQueryDTO dishPageQueryDTO){
+        PageResult page = dishService.page(dishPageQueryDTO);
+        return Result.success(page);
+    }
+    /**
+     * 修改菜品状态
+     * @param status
+     * @param id
+     * @return
+     */
+    @PostMapping("/status/{status}")
+    public Result status(@PathVariable String status,@RequestParam String id){
+        dishService.status(status,id);
+        return Result.success("修改成功");
+    }
+
+    /**
+     * 根据Id查询菜品
+     */
+    @GetMapping("/{id}")
+    public Result selectDishById(@PathVariable String id){
+        DishVO dishVOS = dishService.selectDishById(id);
+        return Result.success(dishVOS);
+    }
+    /**
+     * 根据种类查询菜品
+     * @param categoryId
+     * @return
+     */
+    @GetMapping("/list")
+    public Result list(@RequestParam String categoryId){
+        List<Dish> list = dishService.list(categoryId);
+        return Result.success(list);
+    }
+
+    /**
+     * TODO 增加菜品
+     * @param dishDTO
+     * @return
+     */
     @PostMapping
     public Result addDish(@RequestBody DishDTO dishDTO){
         dishService.addDish(dishDTO);
         return Result.success();
     }
 
-    public Result addFlavor(@RequestBody DishFlavor dishFlavor){
-        return Result.success();
-    }
+//    public Result addFlavor(@RequestBody DishFlavor dishFlavor){
+//        return Result.success();
+//    }
 
 }

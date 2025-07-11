@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sky.mapper.DishMapper">
+    <select id="page" resultType="com.sky.entity.Dish">
+        select * from dish
+        <where>
+            <if test="name != null and name != ''">
+                and name like concat('%',#{name},'%')
+            </if>
+            <if test="status != null and status != ''">
+                and status like concat('%',#{status},'%')
+            </if>
+            <if test="categoryId != null and categoryId != ''">
+                and category_id like concat('%',#{categoryId},'%')
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <insert id="addFlavor"
+            parameterType="java.util.List"
+            useGeneratedKeys="true"
+            keyProperty="id">
+        INSERT INTO dish_flavor (dish_id, name, value)
+        VALUES
+        <foreach collection="list" item="f" separator=",">
+            <if test="f.name != null and f.name != '' and f.value != null and f.value != ''">
+                (#{f.dishId}, #{f.name}, #{f.value})
+            </if>
+        </foreach>
+    </insert>
+    <!--    <update id="editEmployee">-->
+    <!--        update employee-->
+    <!--        set-->
+    <!--            <if test=""-->
+    <!--    </update>-->
+</mapper>
