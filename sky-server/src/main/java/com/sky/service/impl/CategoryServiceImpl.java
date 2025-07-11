@@ -27,8 +27,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<Category> list(String type) {
-        List<Category> list = categoryMapper.list(type);
-        return list;
+        return categoryMapper.list(type);
     }
 
     @Override
@@ -40,10 +39,10 @@ public class CategoryServiceImpl implements CategoryService {
     public void addCategory(CategoryDTO categoryDTO) {
         Category category = new Category();
         BeanUtils.copyProperties(categoryDTO,category);
-        category.setCreateTime(LocalDateTime.now());
-        category.setUpdateTime(LocalDateTime.now());
-        category.setUpdateUser(BaseContext.getCurrentId());
-        category.setCreateUser(BaseContext.getCurrentId());
+//        category.setCreateTime(LocalDateTime.now());
+//        category.setUpdateTime(LocalDateTime.now());
+//        category.setUpdateUser(BaseContext.getCurrentId());
+//        category.setCreateUser(BaseContext.getCurrentId());
 
         categoryMapper.addCategory(category);
     }
