@@ -2,7 +2,6 @@ package com.sky.mapper;
 
 import com.github.pagehelper.Page;
 import com.sky.annotation.AutoFill;
-import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeePageQueryDTO;
 import com.sky.dto.PasswordEditDTO;
 import com.sky.entity.Employee;
@@ -31,11 +30,11 @@ public interface EmployeeMapper {
 
     Page<Employee> pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
 
-    @AutoFill(value = OperationType.UPDATE)
+    //@AutoFill(value = OperationType.UPDATE)
     @Update("UPDATE employee set status = #{status} where id = #{id}")
     void setStatus(String status,String id);
 
-    @AutoFill(value = OperationType.UPDATE)
+    //@AutoFill(value = OperationType.UPDATE)
     @Update("UPDATE employee SET password = #{newPassword} WHERE id = #{empId}")
     void editPassword(PasswordEditDTO passwordEditDTO);
 
@@ -44,5 +43,5 @@ public interface EmployeeMapper {
 
     @AutoFill(value = OperationType.UPDATE)
     @Update("update employee set id_number = #{idNumber},sex = #{sex},phone =#{phone},name = #{name},username = #{username} WHERE id = #{id}")
-    void editEmployee(EmployeeDTO employeeDTO);
+    void editEmployee(Employee employeeDTO);
 }
