@@ -12,7 +12,7 @@ import java.util.List;
 
 @Mapper
 public interface CategoryMapper {
-    @Select("select * From category where type = #{type}")
+
     List<Category> list(String type);
 
     @Delete("delete from category where id = #{id}")

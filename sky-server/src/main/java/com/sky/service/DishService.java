@@ -11,9 +11,9 @@ import java.util.List;
 public interface DishService {
     void addDish(DishDTO dishDTO);
     //void addFlavor(DishFlavor dishFlavor);
-    List<Dish> list(String categoryId);
+    List<Dish> list(Long categoryId);
 
-    DishVO selectDishById(String id);
+    DishVO selectDishById(Long id);
 
     void status(String status, String id);
 
@@ -22,4 +22,6 @@ public interface DishService {
     void deleteById(List<Long> ids);
 
     void updataById(DishDTO dishDTO);
+
+    List<DishVO> listWithFlavor(Dish dish);
 }

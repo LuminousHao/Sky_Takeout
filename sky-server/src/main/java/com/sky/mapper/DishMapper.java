@@ -5,9 +5,7 @@ import com.github.pagehelper.Page;
 import com.sky.annotation.AutoFill;
 import com.sky.dto.DishPageQueryDTO;
 import com.sky.entity.Dish;
-import com.sky.entity.DishFlavor;
 import com.sky.enumeration.OperationType;
-import com.sky.vo.DishVO;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -18,14 +16,11 @@ public interface DishMapper {
     @AutoFill(value = OperationType.INSERT)
     void addDish(Dish dishDTO);
 
-    @Select("select * from dish where category_id = #{categoryId}")
-    List<Dish> list(String categoryId);
+    List<Dish> list(Dish dish);
 
     @Select("select * from dish where id = #{id}")
-    DishVO selectDishById(String id);
+    Dish selectDishById(Long id);
 
-    @Select("select * from dish_flavor where dish_id = #{id}")
-    List<DishFlavor> selectDishFlavorById(String id);
 
     @Update("update dish set status = #{status} where id = #{id}")
     void status(String status, String id);
@@ -36,6 +31,9 @@ public interface DishMapper {
 
     @Select("select * from dish where id = #{id}")
     Dish getById(Long id);
+
+    @Select("select a.* from dish a left join setmeal_dish b on a.id = b.dish_id where b.setmeal_id = #{setmealId}")
+    List<Dish> getBySetmealId(Long setmealId);
 
     void updataById(Dish dish);
 }

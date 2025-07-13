@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -32,6 +33,26 @@ public class DishServiceImpl implements DishService {
     private FlavorMapper flavorMapper;
     @Autowired
     private SetmealDishMapper setmealDishMapper;
+
+    @Override
+    public List<DishVO> listWithFlavor(Dish dish) {
+        List<Dish> dishList = dishMapper.list(dish);
+
+        List<DishVO> dishVOList = new ArrayList<>();
+
+        for (Dish d : dishList) {
+            DishVO dishVO = new DishVO();
+            BeanUtils.copyProperties(d,dishVO);
+
+            //根据菜品id查询对应的口味
+            List<DishFlavor> flavors = flavorMapper.selectDishFlavorById(d.getId());
+
+            dishVO.setFlavors(flavors);
+            dishVOList.add(dishVO);
+        }
+
+        return dishVOList;
+    }
 
     @Transactional
     @Override
@@ -51,19 +72,23 @@ public class DishServiceImpl implements DishService {
 
     }
 
-
     @Override
-    public List<Dish> list(String categoryId) {
-        List<Dish> list = dishMapper.list(categoryId);
-        return list;
+    public List<Dish> list(Long categoryId) {
+        Dish dish = Dish.builder()
+                .categoryId(categoryId)
+                .status(StatusConstant.ENABLE)
+                .build();
+        return dishMapper.list(dish);
     }
 
     @Override
-    public DishVO selectDishById(String id) {
-        List<DishFlavor> dishFlavors = dishMapper.selectDishFlavorById(id);
-        DishVO dishVOS = dishMapper.selectDishById(id);
-        dishVOS.setFlavors(dishFlavors);
-        return dishVOS;
+    public DishVO selectDishById(Long id) {
+        List<DishFlavor> dishFlavors = flavorMapper.selectDishFlavorById(id);
+        Dish dish = dishMapper.selectDishById(id);
+        DishVO dishVO = new DishVO();
+        BeanUtils.copyProperties(dish,dishVO);
+        dishVO.setFlavors(dishFlavors);
+        return dishVO;
     }
 
     @Override

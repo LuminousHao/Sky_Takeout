@@ -63,7 +63,7 @@ public class DishController {
      * 根据Id查询菜品
      */
     @GetMapping("/{id}")
-    public Result selectDishById(@PathVariable String id){
+    public Result selectDishById(@PathVariable Long id){
         DishVO dishVOS = dishService.selectDishById(id);
         return Result.success(dishVOS);
     }
@@ -73,7 +73,7 @@ public class DishController {
      * @return
      */
     @GetMapping("/list")
-    public Result list(@RequestParam String categoryId){
+    public Result list(@RequestParam Long categoryId){
         List<Dish> list = dishService.list(categoryId);
         return Result.success(list);
     }
