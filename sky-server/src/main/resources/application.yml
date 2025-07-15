@@ -52,6 +52,11 @@ sky:
     user-token-name: authentication
     user-ttl: 7200000
 
+  shop:
+    address: ${sky.shop.sddress}
+  baidu:
+    ak: ${sky.baidu.ak}
+
 
 
 
