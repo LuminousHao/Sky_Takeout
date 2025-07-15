@@ -5,14 +5,14 @@ sky:
     port: 3306
     database: sky_take_out
     username: root
-    password: zenghao
+    password: 
   wechat:
-    appid: wx3132966c3db4b411
-    secret: 3021e39d7ed2ecb89f702616b4ef9c57
+    appid: 
+    secret:
 
 spring:
   redis:
     database: 1
-    host: 192.168.11.128
-    password: zenghao
-    port: 6379
+    host: 
+    password: 
+    port: 
