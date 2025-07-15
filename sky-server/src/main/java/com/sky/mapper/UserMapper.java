@@ -1,8 +1,6 @@
 package com.sky.mapper;
 
-import com.sky.dto.UserLoginDTO;
 import com.sky.entity.User;
-import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -14,4 +12,8 @@ public interface UserMapper {
 
 //    @Insert("insert into user values (openid,name,phone,sex,id_number,avatar,create_time)")
     void addUser(User user);
+
+
+    @Select("select * from user where id = #{id}")
+    User getById(Long userId);
 }
